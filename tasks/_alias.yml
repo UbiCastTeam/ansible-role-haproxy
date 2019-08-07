@@ -1,0 +1,8 @@
+---
+
+- name: add alias for live stats watching
+  lineinfile:
+    path: "{{ haproxy_alias_path }}"
+    line: alias haproxy_stats='watch '\''echo "show stat" | nc -U {{ haproxy_stat_socket }} | cut -d "," -f 1,2,9,10,18,37,57 | column -s, -t'\'''
+
+...

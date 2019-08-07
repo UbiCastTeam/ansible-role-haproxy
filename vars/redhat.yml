@@ -1,0 +1,25 @@
+---
+
+# package and service name
+haproxy_package: rh-haproxy18
+haproxy_dependencies:
+  - openssl
+haproxy_service: "{{ haproxy_package }}-haproxy"
+
+# configuration directory
+haproxy_base: /etc/opt/rh/{{ haproxy_package }}/haproxy
+
+# haproxy command
+haproxy_validate: scl enable {{ haproxy_package }} -- haproxy -c -f %s
+
+###
+# haproxy.cfg content
+###
+
+haproxy_chroot: /var/opt/rh/{{ haproxy_package }}/lib/haproxy
+haproxy_pidfile: /var/run/{{ haproxy_package }}-haproxy.pid
+haproxy_stat_socket: /var/opt/rh/{{ haproxy_package }}/lib/haproxy/stats
+haproxy_ca_base: /etc/pki/tls/certs
+haproxy_crt_base: /etc/pki/tls/private
+
+...

@@ -1,0 +1,21 @@
+---
+
+- name: enable scl repo
+  when: ansible_distribution == 'CentOS'
+  package:
+    name: centos-release-scl
+    state: present
+
+- name: enable rhscl repo
+  when: ansible_distribution == 'Red Hat Enterprise Linux'
+  command: yum-config-manager --enable rhel-server-rhscl-7-rpms
+
+- name: install packages
+  loop:
+    - "{{ haproxy_dependencies }}"
+    - "{{ haproxy_package }}"
+  package:
+    name: "{{ item }}"
+    state: present
+
+...

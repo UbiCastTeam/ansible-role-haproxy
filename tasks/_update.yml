@@ -1,0 +1,11 @@
+---
+
+- name: update packages
+  loop:
+    - "{{ haproxy_dependencies }}"
+    - "{{ haproxy_package }}"
+  package:
+    name: "{{ item }}"
+    state: latest  # noqa 403
+
+...

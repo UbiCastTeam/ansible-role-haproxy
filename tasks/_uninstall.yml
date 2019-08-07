@@ -1,0 +1,8 @@
+---
+
+- name: uninstall packages
+  package:
+    name: "{{ haproxy_package }}"
+    state: absent
+
+...

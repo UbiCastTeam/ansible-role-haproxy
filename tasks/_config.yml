@@ -1,0 +1,36 @@
+---
+
+- name: create directory
+  file:
+    path: "{{ haproxy_base }}"
+    state: directory
+
+- name: deploy configuration
+  notify: restart haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: "{{ haproxy_base }}/haproxy.cfg"
+    validate: "{{ haproxy_validate }}"
+
+- name: get selinux status
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  register: haproxy_selinux_status
+  changed_when: false
+  shell: |
+    set -o pipefail
+    sestatus | grep 'SELinux status:' | awk '{ print $3 }'
+  args:
+    executable: /bin/bash
+
+- name: set haproxy_connect_any flag on and keep it persistent
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+    - haproxy_selinux_status.stdout == "enabled"
+  seboolean:
+    name: haproxy_connect_any
+    state: yes
+    persistent: yes
+
+- meta: flush_handlers
+
+...

@@ -1,0 +1,26 @@
+---
+
+# package and service name
+haproxy_package: haproxy
+haproxy_dependencies:
+  - openssl
+  - net-tools
+haproxy_service: haproxy
+
+# configuration directory
+haproxy_base: /etc/haproxy
+
+# haproxy command
+haproxy_validate: haproxy -c -f %s
+
+###
+# haproxy.cfg content
+###
+
+haproxy_chroot: /var/lib/haproxy
+haproxy_pidfile: /run/haproxy.pid
+haproxy_stat_socket: /run/haproxy/admin.sock
+haproxy_ca_base: /etc/ssl/certs
+haproxy_crt_base: /etc/ssl/private
+
+...

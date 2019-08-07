@@ -1,0 +1,8 @@
+---
+
+- name: restart haproxy
+  service:
+    name: "{{ haproxy_service }}"
+    state: restarted
+
+...

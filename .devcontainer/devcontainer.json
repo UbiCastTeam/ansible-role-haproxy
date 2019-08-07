@@ -1,0 +1,31 @@
+{
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/ansible-role-haproxy",
+    "postCreateCommand": "bash .devcontainer/scripts/postcreate.sh",
+	"extensions": [
+		// ansible
+		"vscoss.vscode-ansible",
+		"redhat.vscode-yaml",
+		// python
+		"ms-python.python",
+	],
+    "settings": {
+        "files.associations": {
+            "**/requirements.in/*.txt": "pip-requirements",
+            "requirements.*.txt": "pip-requirements",
+            "**/defaults/**/*": "ansible",
+            "**/tasks/**/*.yml": "ansible",
+            "**/handler/*.yml": "ansible",
+            "**/*_vars/**/*.yml": "ansible",
+            "**/roles/**/*.yml": "ansible",
+            "**/role.d/**/*.yml": "ansible",
+            "**/playbooks/**/*.yml": "ansible",
+            "**/playbook.d/**/*.yml": "ansible",
+            "**/*ansible*/**/*.yml": "ansible",
+            "**/vars/**/*.yml": "ansible",
+            "**/inventory/**/*": "ansible",
+            "**/inventory.d/**/*": "ansible",
+        },
+    },
+}

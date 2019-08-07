@@ -1,0 +1,9 @@
+---
+
+- name: enable and start services
+  service:
+    name: "{{ haproxy_service }}"
+    enabled: false
+    state: stopped
+
+...

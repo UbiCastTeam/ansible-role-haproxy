@@ -1,0 +1,17 @@
+---
+
+# default actions set
+
+- name: install tasks
+  include: _install.yml
+
+- name: configuration tasks
+  include: _config.yml
+
+- name: start tasks
+  include: _start.yml
+
+- name: alias tasks
+  include: _alias.yml
+
+...

@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    haproxy_frontends:
+      - name: http-in
+        settings:
+          - bind 0.0.0.0:80
+          - bind :::80
+          - use_backend default
+    haproxy_backends:
+      - name: default
+        settings:
+          - server default 192.168.0.3:80
+  roles:
+    - role: ansible-role-haproxy

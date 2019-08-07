@@ -1,0 +1,24 @@
+---
+
+- name: read vars from first file found
+  tags: always
+  loop: "{{ query('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution | lower }}.yml"
+        - "{{ ansible_os_family | lower }}.yml"
+      paths:
+        - "vars"
+  include_vars: "{{ item }}"
+
+- name: action to perform
+  debug:
+    var: haproxy_action
+
+- name: load action tasks
+  include: _{{ haproxy_action }}.yml
+
+- meta: flush_handlers
+
+...

@@ -1,0 +1,60 @@
+#---------------------------------------------------------------------
+# HAProxy | {{ ansible_managed | lower }}
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+# global settings
+#---------------------------------------------------------------------
+
+global
+{% for haproxy_global in haproxy_globals %}
+    {{ haproxy_global }}
+{% endfor %}
+
+#---------------------------------------------------------------------
+# common defaults
+#---------------------------------------------------------------------
+
+defaults
+{% for haproxy_default in haproxy_defaults %}
+    {{ haproxy_default }}
+{% endfor %}
+{% if haproxy_listens %}
+
+#---------------------------------------------------------------------
+# listens
+#---------------------------------------------------------------------
+{%   for haproxy_listen in haproxy_listens %}
+
+listen {{ haproxy_listen.name }}
+{%     for listen_setting in haproxy_listen.settings %}
+    {{ listen_setting }}
+{%     endfor %}
+{%   endfor %}
+{% endif %}
+{% if haproxy_frontends %}
+
+#---------------------------------------------------------------------
+# frontends
+#---------------------------------------------------------------------
+{%   for haproxy_frontend in haproxy_frontends %}
+
+frontend {{ haproxy_frontend.name }}
+{%     for frontend_setting in haproxy_frontend.settings %}
+    {{ frontend_setting }}
+{%     endfor %}
+{%   endfor %}
+{% endif %}
+{% if haproxy_backends %}
+
+#---------------------------------------------------------------------
+# backends
+#---------------------------------------------------------------------
+{%   for haproxy_backend in haproxy_backends %}
+
+backend {{ haproxy_backend.name }}
+{%     for backend_setting in haproxy_backend.settings %}
+    {{ backend_setting }}
+{%     endfor %}
+{%   endfor %}
+{% endif %}
