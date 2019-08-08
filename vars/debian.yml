@@ -5,6 +5,7 @@ haproxy_package: haproxy
 haproxy_dependencies:
   - openssl
   - net-tools
+  - netcat-openbsd
 haproxy_service: haproxy
 
 # configuration directory
